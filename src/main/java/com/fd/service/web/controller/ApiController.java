@@ -1,5 +1,9 @@
 package com.fd.service.web.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +24,13 @@ public class ApiController extends BaseController {
 		/**
 		 * 调用内部微服务
 		 */
-		return Hc.get("home/hello");
+		try {
+			return Hc.upload("api/upload", Files.readAllBytes(Paths.get("g:/beiju.gif")), "file",
+					"cdad0cf489d4cb90e933f1c6c4814ce3_r.png");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "ccc";
 	}
 
 	@RequestMapping("/saveuser")
